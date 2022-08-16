@@ -13,8 +13,9 @@
     "target": "es6",
     "module": "es2020",
     "lib": [
-      "es2018",
-      "dom"
+        "es2019",
+        "es2018",
+        "dom"
     ]
   },
   "angularCompilerOptions": {
