@@ -456,3 +456,5 @@ $RECYCLE.BIN/
 appsettings.json
 ssl
 StudentAssets
+*.db-shm
+*.db-wal
