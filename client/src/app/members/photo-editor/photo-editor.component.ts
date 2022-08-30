@@ -1,10 +1,12 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FileUploader } from 'ng2-file-upload';
 import { Member } from '../../models/member';
-import { environment } from '../../../environments/environment.prod';
+import { environment } from '../../../environments/environment';
 import { AccountService } from '../../services/account.service';
 import { User } from '../../models/user';
 import { take } from 'rxjs/operators';
+import { MembersService } from '../../services/members.service';
+import { Photo } from '../../models/photo';
 
 @Component({
     selector: 'app-photo-editor',
@@ -19,7 +21,7 @@ export class PhotoEditorComponent implements OnInit
     baseUrl = environment.apiUrl;
     user: User;
 
-    constructor(private accountService: AccountService)
+    constructor(private accountService: AccountService, private memberService: MembersService)
     {
         this.accountService.currentUser$.pipe(take(1)).subscribe(user => this.user = user);
     }
@@ -61,4 +63,27 @@ export class PhotoEditorComponent implements OnInit
         }
     }
 
+    setMainPhoto(photo: Photo)
+    {
+        this.memberService.setMainPhoto(photo.id).subscribe(() =>
+        {
+            this.user.photoUrl = photo.url;
+            this.accountService.setCurrentUser(this.user);
+            this.member.photoUrl = photo.url;
+            this.member.photos.forEach(p =>
+            {
+                if (p.isMain) p.isMain = false;
+                if (p.id === photo.id) p.isMain = true;
+            })
+        });
+    }
+
+    deletePhoto(photoId: number)
+    {
+        this.memberService.deletePhoto(photoId).subscribe(() =>
+        {
+            this.member.photos = this.member.photos.filter(x => x.id !== photoId);
+            
+        });
+    }
 }
