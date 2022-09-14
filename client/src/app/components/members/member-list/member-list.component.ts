@@ -52,4 +52,10 @@ export class MemberListComponent implements OnInit
         this.memberService.setUserParams(this.userParams);
         this.loadMembers();
     }
+
+    genderChanged()
+    {
+        this.userParams.pageNumber = 1;
+        this.memberService.setUserParams(this.userParams);
+    }
 }
