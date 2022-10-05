@@ -3,9 +3,7 @@ import { Member } from 'src/app/models/member';
 import { MembersService } from 'src/app/services/members.service';
 import { Pagination } from '../../../models/pagination';
 import { UserParams } from '../../../models/userParams';
-import { AccountService } from '../../../services/account.service';
 import { User } from '../../../models/user';
-import { take } from 'rxjs/operators';
 
 @Component({
     selector: 'app-member-list',

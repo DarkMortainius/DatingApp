@@ -19,7 +19,7 @@ export class ErrorInterceptor implements HttpInterceptor
                 {
                     switch (error.status)
                     {
-                        case 400:                            
+                        case 400:
                             if (error.error.errors)
                             {
                                 // Flatten array of errors
@@ -33,9 +33,13 @@ export class ErrorInterceptor implements HttpInterceptor
                                 }
                                 throw modalStateErrors.flat();
                             }
-                            else
+                            else if (typeof (error.error) === 'object')
                             {
                                 this.toastr.error(error.statusText === 'OK' ? 'Bad Request' : error.statusText, error.status);
+                            }
+                            else
+                            {
+                                this.toastr.error(error.error, error.status);
                             }
                             break;
                         case 401:

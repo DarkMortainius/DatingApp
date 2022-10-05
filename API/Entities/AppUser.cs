@@ -1,4 +1,5 @@
 using API.Extensions;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace API.Entities
 {
@@ -18,6 +19,8 @@ namespace API.Entities
         public string Interests { get; set; }
         public string City { get; set; }
         public string Country { get; set; }
-        public ICollection<Photo> Photos { get; set; }        
+        public ICollection<Photo> Photos { get; set; }     
+        public ICollection<UserLike> LikedByUsers { get; set; }
+        public ICollection<UserLike> LikedUsers { get; set; }   
     }
 }
